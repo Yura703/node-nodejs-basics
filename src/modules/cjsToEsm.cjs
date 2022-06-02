@@ -1,3 +1,8 @@
+/*
+Вы должны реорганизовать файл (вы можете добавить дополнительные импорты, если это необходимо)
+cjsToEsm.cjs- перепишите его на эквивалент в нотации ECMAScript (и переключите расширение на .mjs)
+*/
+
 const path = require('path');
 const { release, version } = require('os');
 const { createServer: createServerHttp } = require('http');
