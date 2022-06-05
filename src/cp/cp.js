@@ -5,6 +5,10 @@ args и создает дочерний процесс из файла script.js
 дочерний процесс stdin должен получать данные от главного процесса stdin
 дочерний процесс stdout должен отправлять данные главному процессу stdout
 */
+// для проверки введите в консоль: node <путь к файлу ...\cp.js> arg1 arg2 arg3
+//После ввода текста нажмите Enter. Для выхода из программы введите "CLOSE"
+
+
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import childProcess from 'child_process';
