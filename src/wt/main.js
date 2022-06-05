@@ -20,27 +20,32 @@ export const performCalculations = async () => {
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
   const path = join(__dirname, 'worker.js');
-  let cpuCount = os.cpus().length;
+  let cpuCount = os.cpus().length;  
+  const workersPromise = [];
 
-
-  for (let i = 0; i < cpuCount; i++) {
-    new Promise((resolve, reject) => {
+  for (let i = 0; i < cpuCount; i++) {    
+    const promise = new Promise((resolve, _reject) => {
       const worker = new Worker(path, { workerData: { n: (10 + i) } });
-      worker.on('message', resolve);
-      worker.on('error', reject);
-      worker.on('exit', (code) => {
-        if (code !== 0)
-          reject(new Error(`Worker stopped with exit code ${code}`));
-      })
-    })
-  
 
-    
-    
+      worker.on('message', (data) => {
+        resolve({
+          status: 'resolved',
+          data: data,
+        })
+      });
+
+      worker.on('error', ((err) => {
+        resolve({
+          status: 'error',
+          data: null,
+        })        
+      }));      
+    })
+
+    workersPromise.push(promise);
   }
-    
-        
-    
+
+  Promise.all(workersPromise).then((data) => console.log(data));  
 };
 
 performCalculations();

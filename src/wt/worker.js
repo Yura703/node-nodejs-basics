@@ -11,7 +11,8 @@ export const nthFibonacci = (n) => n < 2 ? n : nthFibonacci(n - 1) + nthFibonacc
 
 export const sendResult = () => {
     const nf = nthFibonacci(workerData.n);
-    console.log(n + '--' + nf);
-    // This function sends result of nthFibonacci computations to main thread
+    parentPort.postMessage(nf);
 };
+
+sendResult();
 
